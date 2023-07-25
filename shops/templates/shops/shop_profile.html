@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load bootstrap3 %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-md-6">
+            <img src="https://dailytimes.com.pk/assets/uploads/2021/04/09/serv.jpg" class="img-fluid rounded" alt="Shop Image">
+        </div>
+        <div class="col-md-6">
+            {% if user == object.shop_owner %}
+            <a href="{% url 'shops:shop_profile_update' slug=object.slug %}" class="btn btn-success float-right">Update Profile</a>
+            {% endif %}
+            <h3 class="mb-4">Pharmacy Profile</h3>
+            <h5>Pharmacy Title: {{ object.title }}</h5>
+            <h5>Pharmacy Address: {{ object.shop_address }}</h5>
+            <div class="d-flex justify-content-between mt-4">
+                <div>
+                    <p>Customers: {{ object.customers.count }}</p>
+                </div>
+                <div>
+                    <p>Favorite Customers: {{ object.customers_favorite.count }}</p>
+                </div>
+            </div>
+            <p>Products: {{ products_count }}</p>
+        </div>
+    </div>
+</div>
+{% endblock content %}
+
+{% block styles %}
+<style>
+    .container {
+        max-width: 800px;
+    }
+</style>
+{% endblock styles %}

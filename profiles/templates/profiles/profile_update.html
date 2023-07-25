@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load bootstrap3 %}
+
+{% block content %}
+<div class="container my-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8 col-lg-6">
+            {% for message in messages %}
+                {% if message %}
+                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                        {{ message }}
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                {% endif %}
+            {% endfor %}
+
+            <div class="text-center mb-4">
+                <img src="{{ request.user.userprofile.avatar.url }}" class="img-thumbnail rounded-circle" alt="User Avatar">
+            </div>
+
+            <form method="POST" enctype="multipart/form-data" class="border p-4 bg-light">
+                {% csrf_token %}
+                {% bootstrap_form form %}
+
+                <div class="text-center mt-4">
+                    <button type="submit" class="btn btn-primary btn-block">Save Changes</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock content %}

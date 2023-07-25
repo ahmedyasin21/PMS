@@ -1,0 +1,88 @@
+{% extends 'base.html' %}
+{% block content %}
+<style>
+  .card {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  
+  .card-title {
+    color: #333;
+  }
+  
+  .card-text {
+    color: #777;
+  }
+  
+  .card-link {
+    text-decoration: none;
+    color: inherit;
+  }
+</style>
+
+<h1>Welcome to Pharmacy Management System</h1>
+
+{% if user.is_authenticated %}
+<div class="card-deck">
+    <div class="card">
+        <a href="{% url 'products:product_list' %}" class="card-link">
+            <img src="image_url_product_list" class="card-img-top" alt="Product List">
+            <div class="card-body">
+                <h5 class="card-title">Product List</h5>
+                <p class="card-text">Click here to view the product list.</p>
+            </div>
+        </a>
+    </div>
+    
+    {% if user.is_staff %}
+    <div class="card">
+        <a href="{% url 'products:product' %}" class="card-link">
+            <img src="image_url_sale_product" class="card-img-top" alt="Sale Product">
+            <div class="card-body">
+                <h5 class="card-title">Sale Product</h5>
+                <p class="card-text">Click here to manage sale products.</p>
+            </div>
+        </a>
+    </div>
+    {% endif %}
+    
+    <div class="card">
+        <a href="{% url 'profiles:profile' %}" class="card-link">
+            <img src="image_url_profile" class="card-img-top" alt="Profile">
+            <div class="card-body">
+                <h5 class="card-title">Your Profile</h5>
+                <p class="card-text">Click here to view and edit your profile.</p>
+            </div>
+        </a>
+    </div>
+</div>
+
+<div class="card-deck">
+    <div class="card">
+        <a href="{% url 'shoprequests:shop_request' %}" class="card-link">
+            <img src="image_url_shop_request" class="card-img-top" alt="Shop Request">
+            <div class="card-body">
+                <h5 class="card-title">Pharmacy</h5>
+                <p class="card-text">Click here to manage Pharmacy requests.</p>
+            </div>
+        </a>
+    </div>
+
+    <div class="card">
+        <a href="{% url 'categories:all_categories' %}" class="card-link">
+            <img src="image_url_categories" class="card-img-top" alt="Categories">
+            <div class="card-body">
+                <h5 class="card-title">Categories</h5>
+                <p class="card-text">Click here to view all product categories.</p>
+            </div>
+        </a>
+    </div>
+</div>
+
+{% else %}
+<div class="alert alert-info mt-3" role="alert">
+    Please log in to view the Pharmacy Management System.
+</div>
+{% endif %}
+
+{% endblock content %}

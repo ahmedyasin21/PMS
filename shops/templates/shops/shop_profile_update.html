@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load bootstrap3 %}
+
+{% block content %}
+<div class="container mt-5">
+    {% for message in messages %}
+    {% if message %}
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+        {{ message }}
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    {% endif %}
+    {% endfor %}
+
+    <div class="row mb-4">
+        <div class="col-md-4 offset-md-4">
+            <img src="https://dailytimes.com.pk/assets/uploads/2021/04/09/serv.jpg" class="img-fluid rounded-circle" alt="Pharmacy Background">
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-6 offset-md-3">
+            <h3 class="text-center mb-4">Update Pharmacy Profile</h3>
+            <form method="POST" enctype="multipart/form-data">{% csrf_token %}
+                {% bootstrap_form form %}
+                <button type="submit" class="btn btn-primary btn-block mt-3">Save Changes</button>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock content %}
+
+{% block styles %}
+<style>
+    .container {
+        max-width: 800px;
+    }
+
+    .alert {
+        text-align: center;
+    }
+</style>
+{% endblock styles %}

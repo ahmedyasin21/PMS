@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-md-6">
+            <img class="img-fluid rounded" src="{{ object.image_one.url }}" alt="Product Image">
+        </div>
+        <div class="col-md-6">
+            <h3>Product Owner: <a href="{% url 'shops:shop_profile' slug=object.product_owner.slug %}">{{ object.product_owner }}</a></h3>
+            <h5>{{ object.title }}</h5>
+            <p class="text-muted"><small>Created: {{ object.create_date|timesince }}</small></p>
+            <p>{{ object.description }}</p>
+
+            {% if user == object.product_owner.shop_owner %}
+            <div class="text-center mt-3">
+                <a href="{% url 'products:product_delete' slug=object.slug %}" class="btn btn-danger mx-2">Delete</a>
+                <a href="{% url 'products:product_update' slug=object.slug %}" class="btn btn-success mx-2">Update</a>
+            </div>
+            {% endif %}
+
+            <div class="text-center mt-3">
+                {% if not object.in_cart %}
+                <a href="{{ object.get_add_to_cart_url }}" class="btn btn-primary btn-md mx-2">
+                    Add to Cart
+                    <i class="fas fa-shopping-cart ml-1"></i>
+                </a>
+                {% else %}
+                <a href="{{ object.get_remove_from_cart_url }}" class="btn btn-danger btn-md mx-2">
+                    Remove from Cart
+                    <i class="fas fa-shopping-cart ml-1"></i>
+                </a>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock content %}
